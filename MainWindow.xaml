@@ -1,0 +1,53 @@
+﻿<Window x:Class="TabControlzEXExample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cons="urn:controlzex"
+        xmlns:local="clr-namespace:TabControlzEXExample"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate x:Key="TabBrowserDataTemplate"
+                      DataType="{x:Type local:BrowserTabItemViewModel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0"
+                        Content="Main Tab Button" />
+                <local:BrowserTabItemUC  Grid.Row="1" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="NewTabBrowserDataTemplate"
+                      DataType="{x:Type local:BrowserTabItemViewModel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0"
+                        Content="Other Button" />
+                <local:BrowserTabItemUC  Grid.Row="1" />
+            </Grid>
+        </DataTemplate>
+        <local:TabControlDataTemplateSelector x:Key="selector"
+                                              WPFTabBrowserDataTemplate="{StaticResource TabBrowserDataTemplate}"
+                                              NewWPFTTabBrowserDataTemplate="{StaticResource NewTabBrowserDataTemplate}" />
+       
+    </Window.Resources>
+    <Grid>
+        <!--<cons:TabControlEx x:Name="BrowserTabControl"
+                           SelectedIndex="{Binding BrowserTabControlSelectedIndex, Mode=TwoWay}"
+                           ItemsSource="{Binding TabCollection}"
+                           ContentTemplateSelector="{StaticResource selector}" />-->
+        <TabControl x:Name="BrowserTabControl"
+                    SelectedIndex="{Binding BrowserTabControlSelectedIndex, Mode=TwoWay}"
+                    ItemsSource="{Binding TabCollection}"
+                    ContentTemplateSelector="{StaticResource selector}" />
+    </Grid>
+</Window>
